@@ -27,7 +27,7 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! MainTableViewCell!
         let oneElement = postArray[indexPath.row]
         cell?.titleLabel.text = oneElement.title
-        cell?.dateLabel.text = "Deadline: \(stringDate!)"
+        cell?.dateLabel.text = "Deadline: \(oneElement.date)"
         cell?.emojiButton.setTitle(oneElement.emoji.rawValue, for: .normal)
         
         //Set the delegate property in MainTableViewCell into a self type
@@ -43,15 +43,12 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         return postArray
     }
     
-    func datePickerChanged(datePicker: UIDatePicker) {
+    func datePickerChanged(datePicker: UIDatePicker) -> String {
         var dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
         
         stringDate = dateFormatter.string(from: datePicker.date)
-        //postArray[0].date = stringDate
-        for (index, _) in postArray.enumerated() {
-            postArray[index].date = stringDate
-        }
+        return stringDate
         
     }
     
