@@ -16,9 +16,9 @@ import Foundation
 class Post {
     var title: String
     var date: String
-    var emoji: String
+    var emoji: EmojiUpdate
     
-    init(title: String, date: String, emoji: String) {
+    init(title: String, date: String, emoji: EmojiUpdate) {
         self.title = title
         self.date = date
         self.emoji = emoji

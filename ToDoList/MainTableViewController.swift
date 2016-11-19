@@ -10,18 +10,17 @@ import Foundation
 import UIKit
 
 
-class MainTableViewController: UITableViewController, AddingPostProtocol, UpdateTheCellProtocol,UpdateEmojiProtocol{
+class MainTableViewController: UITableViewController, AddingPostProtocol, UpdateEmojiProtocol{
     var postArray = [
-        Post(title: "Kaka", date: "15-17-2016", emoji: EmojiUpdate.tick.rawValue)
+        Post(title: "kaka", date: "4343", emoji: .tick)
     ]
     
-    func addPost(post: Post) {
-        postArray.append(post)
-        tableView.reloadData()
-    }
+    
     
     override func viewDidLoad() {
+        print(postArray[0].date)
         print(postArray[0].emoji)
+        print(postArray[0].title)
         //
     }
     
@@ -30,21 +29,15 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! MainTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! MainTableViewCell!
         let oneElement = postArray[indexPath.row]
-        
-        cell.updateTheCellDelegate = self
-        cell.updateEmojiDelegate = self
-        cell.titleLabel.text = oneElement.title
-        cell.dateLabel.text = "4343"
-        cell.emojiButton.setTitle(oneElement.emoji, for: .normal)
-        return cell
+        cell?.titleLabel.text = oneElement.title
+        cell?.dateLabel.text = "4343"
+        cell?.emojiButton.setTitle(oneElement.emoji.rawValue, for: .normal)
+        cell?.updateEmojiDelegate = self
+        return cell!
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let viewController: ViewController = segue.destination as! ViewController
-        viewController.addingPostDelegate = self
-    }
     
     func addPost(post: Post) -> [Post] {
         postArray.append(post)
@@ -52,14 +45,18 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         return postArray
     }
     
-    func updateCell() {
-        //
+    
+    func updateEmoji(sender: MainTableViewCell, post: Post, newEmoji: EmojiUpdate) -> String {
+        if let indexPath = tableView.indexPath(for: sender) {
+            postArray[indexPath.row].emoji = newEmoji
+        }
+        tableView.reloadData()
+        return post.emoji.rawValue
     }
     
-    func updateEmoji(button: UIButton, newEmoji: String) -> String {
-        button.setTitle(newEmoji, for: .normal)
-        postArray[0].emoji = newEmoji
-        tableView.reloadData()
-        return newEmoji
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let viewController: ViewController = segue.destination as! ViewController
+        viewController.addingPostDelegate = self
     }
+
 }

@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBAction func SaveButton(_ sender: Any) {
-        addingPostDelegate.addPost(post: Post(title: titleTextField.text!, date: "Date", emoji: EmojiUpdate.tick.rawValue))
+        addingPostDelegate.addPost(post: Post(title: titleTextField.text!, date: "Date", emoji: EmojiUpdate.tick))
         dismissViewController()
     }
     
