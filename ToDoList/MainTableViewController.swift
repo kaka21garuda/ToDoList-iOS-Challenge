@@ -34,7 +34,10 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         cell?.titleLabel.text = oneElement.title
         cell?.dateLabel.text = "4343"
         cell?.emojiButton.setTitle(oneElement.emoji.rawValue, for: .normal)
+        
+        //Set the delegate property in MainTableViewCell into a self type
         cell?.updateEmojiDelegate = self
+        
         return cell!
     }
     
@@ -45,13 +48,23 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         return postArray
     }
     
-    
-    func updateEmoji(sender: MainTableViewCell, post: Post, newEmoji: EmojiUpdate) -> String {
-        if let indexPath = tableView.indexPath(for: sender) {
-            postArray[indexPath.row].emoji = newEmoji
+    func updateEmoji(sender: MainTableViewCell) {
+        let indexPath = tableView.indexPath(for: sender)
+        //print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
+        switch postArray[(indexPath?.row)!].emoji {
+        case .tick:
+            postArray[(indexPath?.row)!].emoji = .cross
+            sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
+            print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
+        case .cross:
+            postArray[(indexPath?.row)!].emoji = .tick
+            print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
+            sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
         }
-        tableView.reloadData()
-        return post.emoji.rawValue
+    }
+    
+    func getNewEmoji() {
+        print("This is the new Emoji!")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -11,42 +11,33 @@ import UIKit
 
 
 protocol UpdateEmojiProtocol {
-    func updateEmoji(sender: MainTableViewCell, post: Post, newEmoji: EmojiUpdate) -> String
+    func updateEmoji(sender: MainTableViewCell)
+    func getNewEmoji()
 }
 
 class MainTableViewCell: UITableViewCell{
+    //var controllerInstance: MainTableViewController!
     
     var updateEmojiDelegate: UpdateEmojiProtocol?
     
     var post: Post! {
         didSet {
-//            titleLabel.text = post.title
-//            dateLabel.text = post.date
-//            emojiButton.setTitle(post.emoji, for: .normal)
+            //            titleLabel.text = post.title
+            //            dateLabel.text = post.date
+            //            emojiButton.setTitle(post.emoji, for: .normal)
         }
     }
     
     @IBOutlet weak var titleLabel: UILabel!
-
-    @IBOutlet weak var dateLabel: UILabel!
-
-    @IBOutlet weak var emojiButton: UIButton!
-
-    @IBAction func emojiButtonAction(_ sender: Any) {
-        if updateEmojiDelegate != nil {
-            let newEmoji = getNewEmoji()
-            updateEmojiDelegate?.updateEmoji(sender: self,post: post, newEmoji: newEmoji)
-        }
-    }
     
-    func getNewEmoji() -> EmojiUpdate {
+    @IBOutlet weak var dateLabel: UILabel!
+    
+    @IBOutlet weak var emojiButton: UIButton!
+    
+    @IBAction func emojiButtonAction(_ sender: Any) {
         
-        switch post.emoji {
-        case .tick:
-            return .cross
-        case .cross:
-            return .tick
-        }
+        updateEmojiDelegate?.updateEmoji(sender: self)
+        updateEmojiDelegate?.getNewEmoji()
     }
     
 }
