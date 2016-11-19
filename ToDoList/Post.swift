@@ -13,14 +13,14 @@ enum EmojiUpdate: String {
 
 import Foundation
 
-struct Post {
+class Post {
     var title: String
-    var description: String
     var date: String
+    var emoji: String
     
-    init(title: String, description: String, date: String) {
+    init(title: String, date: String, emoji: String) {
         self.title = title
-        self.description = description
         self.date = date
+        self.emoji = emoji
     }
 }

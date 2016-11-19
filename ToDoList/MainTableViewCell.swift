@@ -9,7 +9,21 @@
 import Foundation
 import UIKit
 
-class MainTableViewCell: UITableViewCell {
+protocol UpdateTheCellProtocol {
+    func updateCell()
+}
+
+protocol UpdateEmojiProtocol {
+    func updateEmoji(button: UIButton, newEmoji: String) -> String
+}
+
+class MainTableViewCell: UITableViewCell{
+    
+    var instanceOfController: MainTableViewController!
+    
+    
+    var updateTheCellDelegate: UpdateTheCellProtocol!
+    var updateEmojiDelegate: UpdateEmojiProtocol!
     
     @IBOutlet weak var titleLabel: UILabel!
 
@@ -18,7 +32,23 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet weak var emojiButton: UIButton!
 
     @IBAction func emojiButtonAction(_ sender: Any) {
+        let newEmoji = getNewEmoji()
+        updateEmojiDelegate.updateEmoji(button: emojiButton, newEmoji: newEmoji.rawValue)
+        print(emojiButton.currentTitle!)
     }
+    
+    func getNewEmoji() -> EmojiUpdate {
+        switch emojiButton.currentTitle! {
+        case EmojiUpdate.tick.rawValue:
+            return EmojiUpdate.cross
+        case EmojiUpdate.cross.rawValue:
+            return EmojiUpdate.tick
+        default:
+            return EmojiUpdate.cross
+        }
+    }
+    
+    
 }
 
 

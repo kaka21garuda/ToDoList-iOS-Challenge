@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="dGk-RX-bHS" customClass="MainTableViewCell" customModule="ToDoList" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="80" id="dGk-RX-bHS" customClass="MainTableViewCell" customModule="ToDoList" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dGk-RX-bHS" id="2ci-20-Ytm">
@@ -76,7 +76,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="ToDoList" id="x2j-gk-NYK">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="OBp-Bo-phS"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="OBp-Bo-phS">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="show" id="Jar-hZ-VYX"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="es5-M0-jOE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -96,7 +100,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jH-Nn-Zqc">
-                                <rect key="frame" x="16" y="28" width="46" height="35"/>
+                                <rect key="frame" x="16" y="72" width="46" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="BVy-Ag-1gr"/>
                                     <constraint firstAttribute="width" constant="46" id="h0N-oT-4kN"/>
@@ -105,19 +109,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your title here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W7E-gh-g9R">
-                                <rect key="frame" x="16" y="81" width="343" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4p4-4z-35B">
-                                <rect key="frame" x="16" y="168" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deadline" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4p4-4z-35B">
+                                <rect key="frame" x="16" y="168" width="67" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="AKZ-o5-LiI">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="AKZ-o5-LiI">
                                 <rect key="frame" x="16" y="237" width="343" height="193"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="343" id="JGt-vM-bfU"/>
@@ -141,6 +139,12 @@
                                     <action selector="SaveButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gO6-lF-RtF"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your title here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W7E-gh-g9R">
+                                <rect key="frame" x="16" y="122" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -155,7 +159,7 @@
                             <constraint firstAttribute="leadingMargin" secondItem="0jH-Nn-Zqc" secondAttribute="leading" id="drn-cb-Uvh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AKZ-o5-LiI" secondAttribute="trailing" id="f2A-8P-MqE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JRY-nj-4q1" secondAttribute="trailing" constant="89" id="g3A-0k-Oeh"/>
-                            <constraint firstItem="W7E-gh-g9R" firstAttribute="top" secondItem="0jH-Nn-Zqc" secondAttribute="bottom" constant="18" id="kzj-sX-gge"/>
+                            <constraint firstItem="W7E-gh-g9R" firstAttribute="top" secondItem="0jH-Nn-Zqc" secondAttribute="bottom" constant="15" id="kzj-sX-gge"/>
                             <constraint firstItem="0jH-Nn-Zqc" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="lWv-ny-ULN"/>
                             <constraint firstItem="AKZ-o5-LiI" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="tvs-gU-Nbo"/>
                             <constraint firstAttribute="leadingMargin" secondItem="W7E-gh-g9R" secondAttribute="leading" id="veY-O0-SOK"/>

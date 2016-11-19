@@ -8,13 +8,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+protocol AddingPostProtocol {
+    func addPost(post: Post) -> [Post]
+}
 
+class ViewController: UIViewController {
+    
+    var addingPostDelegate: AddingPostProtocol!
+    
     @IBOutlet weak var titleTextField: UITextField!
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBAction func SaveButton(_ sender: Any) {
+        addingPostDelegate.addPost(post: Post(title: titleTextField.text!, date: "Date", emoji: EmojiUpdate.tick.rawValue))
+        dismissViewController()
     }
     
     
@@ -27,7 +35,9 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    func dismissViewController() {
+        presentingViewController?.dismiss(animated: true)
+    }
 }
 
