@@ -12,7 +12,7 @@ import UIKit
 
 protocol UpdateEmojiProtocol {
     func updateEmoji(sender: MainTableViewCell)
-    func getNewEmoji()
+
 }
 
 class MainTableViewCell: UITableViewCell{
@@ -37,7 +37,7 @@ class MainTableViewCell: UITableViewCell{
     @IBAction func emojiButtonAction(_ sender: Any) {
         
         updateEmojiDelegate?.updateEmoji(sender: self)
-        updateEmojiDelegate?.getNewEmoji()
+        
     }
     
 }

@@ -10,6 +10,7 @@ import UIKit
 
 protocol AddingPostProtocol {
     func addPost(post: Post) -> [Post]
+    func datePickerChanged(datePicker: UIDatePicker)
 }
 
 class ViewController: UIViewController {
@@ -22,7 +23,7 @@ class ViewController: UIViewController {
     
     @IBAction func SaveButton(_ sender: Any) {
         addingPostDelegate.addPost(post: Post(title: titleTextField.text!, date: "Date", emoji: EmojiUpdate.tick))
-        dismissViewController()
+        addingPostDelegate.datePickerChanged(datePicker: datePicker)
     }
     
     
@@ -36,8 +37,6 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func dismissViewController() {
-        presentingViewController?.dismiss(animated: true)
-    }
+    
 }
 

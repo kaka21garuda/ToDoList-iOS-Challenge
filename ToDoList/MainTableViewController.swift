@@ -11,17 +11,12 @@ import UIKit
 
 
 class MainTableViewController: UITableViewController, AddingPostProtocol, UpdateEmojiProtocol{
-    var postArray = [
-        Post(title: "kaka", date: "4343", emoji: .tick)
-    ]
+    var postArray = [Post]()
     
-    
+    var stringDate: String!
     
     override func viewDidLoad() {
-        print(postArray[0].date)
-        print(postArray[0].emoji)
-        print(postArray[0].title)
-        //
+                //
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,7 +27,7 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! MainTableViewCell!
         let oneElement = postArray[indexPath.row]
         cell?.titleLabel.text = oneElement.title
-        cell?.dateLabel.text = "4343"
+        cell?.dateLabel.text = "Deadline: \(stringDate!)"
         cell?.emojiButton.setTitle(oneElement.emoji.rawValue, for: .normal)
         
         //Set the delegate property in MainTableViewCell into a self type
@@ -48,6 +43,18 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         return postArray
     }
     
+    func datePickerChanged(datePicker: UIDatePicker) {
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        
+        stringDate = dateFormatter.string(from: datePicker.date)
+        //postArray[0].date = stringDate
+        for (index, _) in postArray.enumerated() {
+            postArray[index].date = stringDate
+        }
+        
+    }
+    
     func updateEmoji(sender: MainTableViewCell) {
         let indexPath = tableView.indexPath(for: sender)
         //print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
@@ -55,18 +62,19 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         case .tick:
             postArray[(indexPath?.row)!].emoji = .cross
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
+            sender.dateLabel.textColor = UIColor.green
+            sender.dateLabel.text = "You are done here 💪"
             print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
         case .cross:
             postArray[(indexPath?.row)!].emoji = .tick
             print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
+            sender.dateLabel.textColor = UIColor.red
+            sender.dateLabel.text = "Deadline: \(postArray[(indexPath?.row)!].date)"
         }
     }
     
-    func getNewEmoji() {
-        print("This is the new Emoji!")
-    }
-    
+       
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let viewController: ViewController = segue.destination as! ViewController
         viewController.addingPostDelegate = self
