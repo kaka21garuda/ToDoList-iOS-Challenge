@@ -11,7 +11,13 @@ import UIKit
 
 
 class MainTableViewController: UITableViewController, AddingPostProtocol, UpdateEmojiProtocol{
+    var finalDate: String!
+    
+    var doneString =  "You are done here 💪"
+    
     var postArray = [Post]()
+    
+    var IndexpathRow: Int!
     
     var stringDate: String!
     
@@ -36,6 +42,15 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         return cell!
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        IndexpathRow = indexPath.row
+    }
+    
+    func checkLabel() -> String {
+        
+        
+        return checkLabel()
+    }
     
     func addPost(post: Post) -> [Post] {
         postArray.append(post)
@@ -48,6 +63,7 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         dateFormatter.dateStyle = .short
         
         stringDate = dateFormatter.string(from: datePicker.date)
+        finalDate = stringDate
         return stringDate
         
     }
@@ -60,21 +76,30 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
             postArray[(indexPath?.row)!].emoji = .cross
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
             sender.dateLabel.textColor = UIColor.green
-            sender.dateLabel.text = "You are done here 💪"
-            print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
+             sender.dateLabel.text = doneString
+            postArray[(indexPath?.row)!].date = doneString
+            print("Emoji: \(postArray[(indexPath?.row)!].date)")
         case .cross:
             postArray[(indexPath?.row)!].emoji = .tick
             print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
             sender.dateLabel.textColor = UIColor.red
+            postArray[(indexPath?.row)!].date = finalDate
             sender.dateLabel.text = "Deadline: \(postArray[(indexPath?.row)!].date)"
+            print("Emoji: \(postArray[(indexPath?.row)!].date)")
         }
     }
     
-       
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let viewController: ViewController = segue.destination as! ViewController
-        viewController.addingPostDelegate = self
+        if segue.identifier == "moveToViewController" {
+            let viewController: ViewController = segue.destination as! ViewController
+            viewController.addingPostDelegate = self
+        } else if segue.identifier == "showCellSegue" {
+            let showCellView: ShowCellViewController = segue.destination as! ShowCellViewController
+            showCellView.instanceController = self
+        }
+
     }
 
 }

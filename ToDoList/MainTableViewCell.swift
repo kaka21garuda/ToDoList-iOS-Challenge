@@ -12,13 +12,14 @@ import UIKit
 
 protocol UpdateEmojiProtocol {
     func updateEmoji(sender: MainTableViewCell)
-
+   
 }
 
 class MainTableViewCell: UITableViewCell{
     //var controllerInstance: MainTableViewController!
     
     var updateEmojiDelegate: UpdateEmojiProtocol?
+    
     
     var post: Post! {
         didSet {
