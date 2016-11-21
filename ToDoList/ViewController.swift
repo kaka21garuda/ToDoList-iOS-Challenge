@@ -24,9 +24,13 @@ class ViewController: UIViewController {
     @IBAction func SaveButton(_ sender: Any) {
         addingPostDelegate.addPost(post: Post(title: titleTextField.text!, date: addingPostDelegate.datePickerChanged(datePicker: datePicker)
 , emoji: EmojiUpdate.tick))
+        dismissViewController()
         
     }
     
+    func dismissViewController() {
+        presentingViewController?.dismiss(animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

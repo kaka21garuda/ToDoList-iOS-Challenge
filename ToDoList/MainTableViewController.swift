@@ -13,7 +13,7 @@ protocol CheckEmojiProtocol {
     func elementInPostArray(indexOfArray: Int)
 }
 
-class MainTableViewController: UITableViewController, AddingPostProtocol, UpdateEmojiProtocol{
+class MainTableViewController: UITableViewController, AddingPostProtocol, UpdateEmojiProtocol, ChangeTheEmojiProtocol{
     var showCellInstance: ShowCellViewController!
     
     var selectedLabel: String = "You are done here 💪"
@@ -28,9 +28,7 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
     
     var stringDate: String!
     
-    override func viewDidLoad() {
-                //
-    }
+    override func viewDidLoad() {}
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
@@ -82,16 +80,32 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         
     }
     
+    func changeTheEmoji() -> EmojiUpdate {
+        switch postArray[indexpathRow].emoji {
+        case .cross:
+            postArray[indexpathRow].emoji = .tick
+             tableView.reloadData()
+            return .tick
+           
+        case .tick:
+            postArray[indexpathRow].emoji = .cross
+             tableView.reloadData()
+            return .cross
+           
+        }
+    }
+    
     func updateEmoji(sender: MainTableViewCell) {
         let indexPath = tableView.indexPath(for: sender)
         //print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
         switch postArray[(indexPath?.row)!].emoji {
         case .tick:
             postArray[(indexPath?.row)!].emoji = .cross
+            print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
             sender.dateLabel.textColor = UIColor.green
             sender.dateLabel.text = postArray[(indexPath?.row)!].doneString
-            print("Date: \(postArray[(indexPath?.row)!].date)")
+            //print("Date: \(postArray[(indexPath?.row)!].date)")
             
         case .cross:
             postArray[(indexPath?.row)!].emoji = .tick
@@ -99,7 +113,7 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
             sender.dateLabel.textColor = UIColor.red
             sender.dateLabel.text = "Deadline: \(postArray[(indexPath?.row)!].date)"
-            print("Date: \(postArray[(indexPath?.row)!].date)")
+            //print("Date: \(postArray[(indexPath?.row)!].date)")
         }
     }
     
@@ -111,8 +125,7 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         } else if segue.identifier == "showCellSegue" {
             let showCellView: ShowCellViewController = segue.destination as! ShowCellViewController
             showCellView.instanceController = self
+            showCellView.emojiDelegate = self
         }
-
     }
-
 }

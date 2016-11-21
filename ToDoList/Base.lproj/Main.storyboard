@@ -109,17 +109,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUo-Ke-BxI">
-                                <rect key="frame" x="133" y="263" width="109" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Mca-Ag-78K"/>
-                                    <constraint firstAttribute="width" constant="109" id="zlr-X7-mxg"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="descriptionButtonAction:" destination="BeA-oE-2tF" eventType="touchUpInside" id="CEe-1c-eSi"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="doq-DW-lLS">
                                 <rect key="frame" x="126" y="318" width="123" height="30"/>
                                 <constraints>
@@ -130,16 +119,27 @@
                                     <action selector="deleteAction:" destination="BeA-oE-2tF" eventType="touchUpInside" id="Kl4-2o-c7N"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUo-Ke-BxI">
+                                <rect key="frame" x="78" y="256" width="219" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Mca-Ag-78K"/>
+                                    <constraint firstAttribute="width" constant="219" id="zlr-X7-mxg"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="descriptionButtonAction:" destination="BeA-oE-2tF" eventType="touchUpInside" id="CEe-1c-eSi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cUo-Ke-BxI" firstAttribute="top" secondItem="9zg-Rd-f1M" secondAttribute="bottom" constant="67" id="6KE-2R-m3X"/>
+                            <constraint firstItem="cUo-Ke-BxI" firstAttribute="top" secondItem="9zg-Rd-f1M" secondAttribute="bottom" constant="60" id="6KE-2R-m3X"/>
                             <constraint firstItem="doq-DW-lLS" firstAttribute="centerX" secondItem="fT1-WD-npT" secondAttribute="centerX" id="71F-VD-SjO"/>
                             <constraint firstItem="9zg-Rd-f1M" firstAttribute="centerX" secondItem="fT1-WD-npT" secondAttribute="centerX" id="Eci-pQ-SxA"/>
                             <constraint firstItem="9zg-Rd-f1M" firstAttribute="top" secondItem="T9V-fR-Rq2" secondAttribute="bottom" constant="72" id="HS2-HU-e0u"/>
                             <constraint firstAttribute="leadingMargin" secondItem="9zg-Rd-f1M" secondAttribute="leading" id="Kky-tn-4No"/>
                             <constraint firstItem="doq-DW-lLS" firstAttribute="centerY" secondItem="fT1-WD-npT" secondAttribute="centerY" id="VNt-WQ-yFj"/>
-                            <constraint firstItem="doq-DW-lLS" firstAttribute="top" secondItem="cUo-Ke-BxI" secondAttribute="bottom" constant="25" id="j5f-si-Y1o"/>
+                            <constraint firstItem="doq-DW-lLS" firstAttribute="top" secondItem="cUo-Ke-BxI" secondAttribute="bottom" constant="32" id="j5f-si-Y1o"/>
                             <constraint firstAttribute="trailingMargin" secondItem="9zg-Rd-f1M" secondAttribute="trailing" id="jGb-1n-bOn"/>
                             <constraint firstItem="cUo-Ke-BxI" firstAttribute="centerX" secondItem="fT1-WD-npT" secondAttribute="centerX" id="tE2-6E-8Et"/>
                         </constraints>
