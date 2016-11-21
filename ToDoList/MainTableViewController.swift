@@ -9,15 +9,22 @@
 import Foundation
 import UIKit
 
+protocol CheckEmojiProtocol {
+    func elementInPostArray(indexOfArray: Int)
+}
 
 class MainTableViewController: UITableViewController, AddingPostProtocol, UpdateEmojiProtocol{
-    var finalDate: String!
+    var showCellInstance: ShowCellViewController!
     
-    var doneString =  "You are done here 💪"
+    var selectedLabel: String = "You are done here 💪"
+    
+    var checkEmojiDelegate: CheckEmojiProtocol!
+    
+    var finalDate: String!
     
     var postArray = [Post]()
     
-    var IndexpathRow: Int!
+    var indexpathRow: Int!
     
     var stringDate: String!
     
@@ -33,9 +40,15 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! MainTableViewCell!
         let oneElement = postArray[indexPath.row]
         cell?.titleLabel.text = oneElement.title
-        cell?.dateLabel.text = "Deadline: \(oneElement.date)"
+        //cell?.dateLabel.text = "Deadline: \(oneElement.date)"
         cell?.emojiButton.setTitle(oneElement.emoji.rawValue, for: .normal)
-        
+        if cell?.emojiButton.currentTitle == EmojiUpdate.tick.rawValue {
+            cell?.dateLabel.text = "Deadline: \(oneElement.date)"
+            cell?.dateLabel.textColor = UIColor.red
+        } else {
+            cell?.dateLabel.text = oneElement.doneString
+            cell?.dateLabel.textColor = UIColor.green
+        }
         //Set the delegate property in MainTableViewCell into a self type
         cell?.updateEmojiDelegate = self
         
@@ -43,7 +56,8 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        IndexpathRow = indexPath.row
+        indexpathRow = indexPath.row
+        //scheckEmojiDelegate.elementInPostArray(indexOfArray: indexpathRow)
     }
     
     func checkLabel() -> String {
@@ -76,17 +90,16 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
             postArray[(indexPath?.row)!].emoji = .cross
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
             sender.dateLabel.textColor = UIColor.green
-             sender.dateLabel.text = doneString
-            postArray[(indexPath?.row)!].date = doneString
-            print("Emoji: \(postArray[(indexPath?.row)!].date)")
+            sender.dateLabel.text = postArray[(indexPath?.row)!].doneString
+            print("Date: \(postArray[(indexPath?.row)!].date)")
+            
         case .cross:
             postArray[(indexPath?.row)!].emoji = .tick
             print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
             sender.dateLabel.textColor = UIColor.red
-            postArray[(indexPath?.row)!].date = finalDate
             sender.dateLabel.text = "Deadline: \(postArray[(indexPath?.row)!].date)"
-            print("Emoji: \(postArray[(indexPath?.row)!].date)")
+            print("Date: \(postArray[(indexPath?.row)!].date)")
         }
     }
     

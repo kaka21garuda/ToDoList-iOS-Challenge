@@ -16,6 +16,7 @@ protocol UpdateEmojiProtocol {
 }
 
 class MainTableViewCell: UITableViewCell{
+    
     //var controllerInstance: MainTableViewController!
     
     var updateEmojiDelegate: UpdateEmojiProtocol?
@@ -40,6 +41,8 @@ class MainTableViewCell: UITableViewCell{
         updateEmojiDelegate?.updateEmoji(sender: self)
         
     }
+    
+    
     
 }
 

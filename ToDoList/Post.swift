@@ -17,6 +17,7 @@ class Post {
     var title: String
     var date: String
     var emoji: EmojiUpdate
+    var doneString =  "You are done here 💪"
     
     init(title: String, date: String, emoji: EmojiUpdate) {
         self.title = title
