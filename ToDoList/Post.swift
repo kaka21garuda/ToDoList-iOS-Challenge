@@ -13,6 +13,7 @@ enum EmojiUpdate: String {
 
 import Foundation
 
+//This is the class model.
 class Post {
     var title: String
     var date: String

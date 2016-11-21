@@ -12,23 +12,11 @@ import UIKit
 
 protocol UpdateEmojiProtocol {
     func updateEmoji(sender: MainTableViewCell)
-   
 }
 
 class MainTableViewCell: UITableViewCell{
     
-    //var controllerInstance: MainTableViewController!
-    
     var updateEmojiDelegate: UpdateEmojiProtocol?
-    
-    
-    var post: Post! {
-        didSet {
-            //            titleLabel.text = post.title
-            //            dateLabel.text = post.date
-            //            emojiButton.setTitle(post.emoji, for: .normal)
-        }
-    }
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -41,9 +29,6 @@ class MainTableViewCell: UITableViewCell{
         updateEmojiDelegate?.updateEmoji(sender: self)
         
     }
-    
-    
-    
 }
 
 

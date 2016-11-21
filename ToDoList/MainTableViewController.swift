@@ -16,20 +16,16 @@ protocol CheckEmojiProtocol {
 class MainTableViewController: UITableViewController, AddingPostProtocol, UpdateEmojiProtocol, ChangeTheEmojiProtocol{
     var showCellInstance: ShowCellViewController!
     
-    var selectedLabel: String = "You are done here 💪"
-    
     var checkEmojiDelegate: CheckEmojiProtocol!
-    
-    var finalDate: String!
-    
+    //postArray is where all the notes are stored.
     var postArray = [Post]()
     
+    var finalDate: String!
+    var stringDate: String!
+    //the index of which element in posArray is being selected.
     var indexpathRow: Int!
     
-    var stringDate: String!
-    
-    override func viewDidLoad() {}
-    
+    //Return the number of cell in tableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return postArray.count
     }
@@ -38,7 +34,6 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! MainTableViewCell!
         let oneElement = postArray[indexPath.row]
         cell?.titleLabel.text = oneElement.title
-        //cell?.dateLabel.text = "Deadline: \(oneElement.date)"
         cell?.emojiButton.setTitle(oneElement.emoji.rawValue, for: .normal)
         if cell?.emojiButton.currentTitle == EmojiUpdate.tick.rawValue {
             cell?.dateLabel.text = "Deadline: \(oneElement.date)"
@@ -52,18 +47,11 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
         
         return cell!
     }
-    
+    //Select the element in postAray and stored the index value into indexpathRow variable.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         indexpathRow = indexPath.row
-        //scheckEmojiDelegate.elementInPostArray(indexOfArray: indexpathRow)
     }
-    
-    func checkLabel() -> String {
-        
-        
-        return checkLabel()
-    }
-    
+    //this is a delegate function from AddingPostProtocol, in order to append newElement into postArray.
     func addPost(post: Post) -> [Post] {
         postArray.append(post)
         tableView.reloadData()
@@ -73,11 +61,10 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
     func datePickerChanged(datePicker: UIDatePicker) -> String {
         var dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .short
-        
+        //Stored the value from datePicker into
         stringDate = dateFormatter.string(from: datePicker.date)
-        finalDate = stringDate
+        //finalDate = stringDate
         return stringDate
-        
     }
     
     func changeTheEmoji() -> EmojiUpdate {
@@ -86,34 +73,32 @@ class MainTableViewController: UITableViewController, AddingPostProtocol, Update
             postArray[indexpathRow].emoji = .tick
              tableView.reloadData()
             return .tick
-           
         case .tick:
             postArray[indexpathRow].emoji = .cross
              tableView.reloadData()
             return .cross
-           
         }
     }
     
+    //This is a function from UpdateEmojiProtocol, to check what is the current emoji in the tableViewCell and change the emoji if the user tapped the emojiButton.
     func updateEmoji(sender: MainTableViewCell) {
         let indexPath = tableView.indexPath(for: sender)
-        //print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
         switch postArray[(indexPath?.row)!].emoji {
         case .tick:
+            //change the emoji of the specific postArray element with the new emoji
             postArray[(indexPath?.row)!].emoji = .cross
             print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
             sender.dateLabel.textColor = UIColor.green
             sender.dateLabel.text = postArray[(indexPath?.row)!].doneString
-            //print("Date: \(postArray[(indexPath?.row)!].date)")
             
         case .cross:
+            //change the emoji of the specific postArray element with the new emoji
             postArray[(indexPath?.row)!].emoji = .tick
             print("Emoji: \(postArray[(indexPath?.row)!].emoji.rawValue)")
             sender.emojiButton.setTitle(postArray[(indexPath?.row)!].emoji.rawValue, for: .normal)
             sender.dateLabel.textColor = UIColor.red
             sender.dateLabel.text = "Deadline: \(postArray[(indexPath?.row)!].date)"
-            //print("Date: \(postArray[(indexPath?.row)!].date)")
         }
     }
     

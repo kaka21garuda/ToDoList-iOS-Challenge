@@ -46,7 +46,6 @@ class ShowCellViewController: UIViewController{
     
     override func viewDidLoad() {
         instanceController.showCellInstance = self
-//        titleLabel.text = instanceController.postArray[0].doneString
         if instanceController.postArray[instanceController.indexpathRow].emoji == .tick {
             titleLabel.text = "Deadline: \(instanceController.postArray[instanceController.indexpathRow].date)"
             titleLabel.textColor = UIColor.red
